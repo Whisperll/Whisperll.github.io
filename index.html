@@ -1,759 +1,87 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>Whisperll's blog - My Blog</title><meta name="description" content=""><meta name="author" content="Whisperll"><meta name="copyright" content="Whisperll"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Whisperll's blog"><meta name="twitter:description" content=""><meta name="twitter:image" content="http://yoursite.com/img/avatar.png"><meta property="og:type" content="website"><meta property="og:title" content="Whisperll's blog"><meta property="og:url" content="http://yoursite.com/"><meta property="og:site_name" content="Whisperll's blog"><meta property="og:description" content=""><meta property="og:image" content="http://yoursite.com/img/avatar.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Whisperll&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Whisperll&#39;s blog">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="Whisperll">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://yoursite.com/">
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
 
-  <title>Whisperll's blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
   }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Whisperll's blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">MyBlog</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
-            
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Whisperll">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whisperll's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-title-link" itemprop="url">计算机网络</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-09 12:20:35" itemprop="dateCreated datePublished" datetime="2020-03-09T12:20:35+08:00">2020-03-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-06 16:16:40" itemprop="dateModified" datetime="2020-04-06T16:16:40+08:00">2020-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h2><ul>
-<li>OSI七层模型:物理层，数据链路层，网络层，运输层，会话层，表示层， 应用层。</li>
-<li>TCP/IP5层模型：物理层，数据链路层，网络层，运输层，应用层。</li>
-<li>TCP/IP4层模型：网络接口层，网络层(IP)，运输层(TCP/UDP)，应用层(HTTP)。</li>
-</ul>
-<h2 id="常见协议"><a href="#常见协议" class="headerlink" title="常见协议"></a>常见协议</h2><ul>
-<li>应用层： DNS，HTTP, SMTP, POP3(接受文件)，FTP,Telent远程终端协议。</li>
-<li>传输层：TCP，UDP</li>
-<li>网络层：ICMP,IGMP，IP<br>在OSI模型中ARP协议属于链路层；而在TCP/IP模型中，ARP协议属于网络层。<br>ARP是IP地址解析为MAC地址 RARP 将MAC地址解析为IP地址</li>
-</ul>
-<h2 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h2><p>​    TCP提供可靠的、面向连接的运输服务。在传输数据之前必须三次握手建立连接，数据传输结束之后，4次挥手释放连接，而且在数据传递时，又有确认应答、超时重传、滑动窗口、拥塞控制等机制保证传送数据的可靠性。TCP经常用于对网络通信质量有很高要求的地方，如文件传输，邮件发送，远程登录等场景。SMTP、TELNET、HTTP、FTP<br>​    UDP在传送数据之前不需要建立连接，目的主机收到UDP报文后，不需要给出确认。UDP不提供可靠交付，一般用于即时通信，如语音、视频、直播等。RIP(路由选择协议)，DNS<br>​    DNS属于TCP也属于UDP</p>
-<h2 id="TCP粘包与拆包问题"><a href="#TCP粘包与拆包问题" class="headerlink" title="TCP粘包与拆包问题"></a>TCP粘包与拆包问题</h2><h3 id="粘包、拆包发生原因"><a href="#粘包、拆包发生原因" class="headerlink" title="粘包、拆包发生原因"></a>粘包、拆包发生原因</h3><p>发生TCP粘包或拆包有很多原因，现列出常见的几点，可能不全面，欢迎补充，<br>1、要发送的数据大于TCP发送缓冲区剩余空间大小，将会发生拆包。<br>2、待发送数据大于MSS（最大报文长度），TCP在传输前将进行拆包。<br>3、要发送的数据小于TCP发送缓冲区的大小，TCP将多次写入缓冲区的数据一次发送出去，将会发生粘包。<br>4、接收数据端的应用层没有及时读取接收缓冲区中的数据，将发生粘包。<br>等等。</p>
-<h3 id="粘包、拆包解决办法"><a href="#粘包、拆包解决办法" class="headerlink" title="粘包、拆包解决办法"></a>粘包、拆包解决办法</h3><p>通过以上分析，我们清楚了粘包或拆包发生的原因，那么如何解决这个问题呢？解决问题的关键在于如何给每个数据包添加边界信息，常用的方法有如下几个：<br>1、发送端给每个数据包添加包首部，首部中应该至少包含数据包的长度，这样接收端在接收到数据后，通过读取包首部的长度字段，便知道每一个数据包的实际长度了。<br>2、发送端将每个数据包封装为固定长度（不够的可以通过补0填充），这样接收端每次从接收缓冲区中读取固定长度的数据就自然而然的把每个数据包拆分开来。<br>3、可以在数据包之间设置边界，如添加特殊符号，这样，接收端通过这个边界就可以将不同的数据包拆分开。</p>
-<h2 id="三次握手与四次挥手"><a href="#三次握手与四次挥手" class="headerlink" title="三次握手与四次挥手"></a>三次握手与四次挥手</h2><h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>1、客户端向服务器发送TCP连接请求数据包，其中同步标志为SYN=1,ACK=0,初始序列号为x;( syn_sent,等待回复)<br>2、服务器收到请求后，发回连接确认包。SYN=1，ACK=1,ack=x+1,初始序列号为y;( syn_rcvd,收到请求，等待回复)<br>3、客户端收到确认报文后，还需发送确认数据包。ACK=1,ack=y+1,序列号为x+1;( ESTABLISHED,完成三次握手)<br>    三次握手是为了建立可靠的通信信道，双方都确认自己和对方的发送和接受都是正常的。SYN=1表示这是个连接请求或连接接受报文，不携带数据。不能变成两次，已失效的连接请求报文段突然又传送到了服务端，服务端误以为是正常的连接请求，直接发送连接确认报文，导致TCP建立，浪费资源，因而产生错误。<br><img src="/2020/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/3.png" alt></p>
-<h3 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h3><p>​    由于TCP连接是全双工的，因此每个方向都必须单独关闭。当一方数据发送任务完成之后，可以发送FIN来终止这个方向的连接。而另一方可以继续发送数据。<br>​    1、客户端发送请求释放连接报文，FIN=1,seq=u;客户端进入FIN-WAIT-1状态；<br>​    2、服务器收到请求，发送确认报文。ACK=1,seq=v,ack=u+1;服务器进入CLOSE-WAIT状态。客户端收到后进入终止等待2FIN-WAIT-2;<br>​    3、服务器发送完数据之后，向客户端发送请求释放连接报文，FIN=1,ACK=1,seq=w,ack=u+1;进入LAST-ACK状态<br>​    4、客户端收到请求后，发送确认报文，ACK=1,seq=u+1,ack=w+1。客户端进入TIME-        WAIT状态，等待2MSL后进如CLOSED状态，服务器收到确认后进如CLOSED状态。<br>为什么关闭的时候是四次挥手，<br>因为TCP连接时全双工的，每个方向都要发送关闭请求，而另一方向都要确认。<br>TIME_WAIT状态为什么要等待2MSL：<br>因为第四次的确认报文可能丢失，这个状态是用来重发可能丢失的ACK报文。<br>为什么会有CLOSE_WAIT,<br>因为服务器可能有数据未发送完毕，这段时间是继续发送数据的。如果建立连接之后出现故障：TCP有个保活计时器，通常设置为2小时，两小时内没有收到客户端发送的数据，服务器发送探测报文，每75s发送一次，10次之后探测报文没有反应，认为出现故障，关闭连接。<br>TIME_WAIT存在的两个理由：<br>1 可靠的实现TCP全双工连接的终止<br>2 允许老的重复的分节在网络上的消逝（TCP不允许处于TIME_WAIT状态的连接启动一个新的化身，因为TIME_WAIT状态持续2MSL，就可以保证当成功建立一个TCP连接的时候，来自连接先前化身的重复分组已经在网络中消逝。）<br>正常的TCP客户端连接在关闭后，会进入一个TIME_WAIT的状态，持续的时间一般在1~4分钟，短时间内（例如1s内）进行大量的短连接，则可能出现这样一种情况：客户端所在的操作系统的socket端口和句柄被用尽，系统无法再发起新的连接！<br><img src="/2020/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.png" alt></p>
-<h1 id="HTTP1-0、1-1、2-0之间的区别"><a href="#HTTP1-0、1-1、2-0之间的区别" class="headerlink" title="HTTP1.0、1.1、2.0之间的区别"></a>HTTP1.0、1.1、2.0之间的区别</h1><p>   1、HTTP1.1默认开启长连接，在一个TCP连接上可以传送多个HTTP请求和响应。而1.0不支持长连接。客户端和服务器每进行一次HTTP操作，就建立一次连接。<br>    2、缓存处理：在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。<br>    3、Host头处理：1.0请求的url并没有传递主机名(服务器与IP地址绑定)，1.1请求和响应都支持Host头域(虚拟主机共享IP地址)<br>    4、1.1新增24个错误状态响应码。409：请求的资源和资源的当前状态冲突，410：服务器资源永久性删除。<br>    5、带宽优化以及网络连接的使用：1.1允许只请求资源的某个部分.</p>
-<h1 id="HTTP请求与常见相应状态码"><a href="#HTTP请求与常见相应状态码" class="headerlink" title="HTTP请求与常见相应状态码"></a>HTTP请求与常见相应状态码</h1><h2 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h2><p>get:请求特定资源<br>post:向指定资源提交数据进行处理请求。<br>Put:向指定资源上传最新内容。<br>Delete:请求删除资源。</p>
-<h2 id="状态响应吗"><a href="#状态响应吗" class="headerlink" title="状态响应吗"></a>状态响应吗</h2><p>1xx：指示信息–表示请求已接收，继续处理<br>    100 –客户端必须继续发出请求 101-客户端要求服务器转换HTTP协议版本。<br>2xx：成功–表示请求已被成功接收、理解、接受<br>    200—OK   204–请求收到，但返回信息为空 206–服务器已经完成了部分用户的GET请求<br>3xx：重定向–信息不完整需要进一步补充<br>    300 — 请求资源在多处可得到。301—永久重定向，隐式重定向。302 临时重定向，显示重定向。<br>    304—请求的资源没有改变，可以使用缓存。<br>4xx：客户端错误–请求有语法错误或请求无法实现<br>    401—未授权  403—禁止访问。 404 –找不到。409：对当前资源状态，请求不能完成<br>5xx：服务器端错误–服务器未能实现合法的请求<br>    500内部服务器错误，501未实现， 502网关错误，503服务不可用，504 网关超时。</p>
-<h1 id="GET与POST区别"><a href="#GET与POST区别" class="headerlink" title="GET与POST区别"></a>GET与POST区别</h1><p>  Get是从指定资源请求数据，而Post是向指定资源提交要被处理的数据。Get请求刷新无害，而post刷新，数据会被重复提交。Get请求的数据会附加到URL中，多个参数用&amp;连接，URL编码采用ASCII编码。而POST请求会把请求的数据放到body中。因此get请求的数据会暴露在地址栏中，而post不会。又浏览器和服务器对url的长度有限制，所以get传输数据的大小受到url的限制。Get请求的资源会被浏览器缓存。post比get慢，因为post在发送数据之前会先将请求头发送给服务器进行确认，然后才真正发送数据。而get请求直接发送请求头和数据。</p>
-<h1 id="Cookie和Session的区别"><a href="#Cookie和Session的区别" class="headerlink" title="Cookie和Session的区别"></a>Cookie和Session的区别</h1><p>共同之处：<br>cookie和session都是用来跟踪浏览器用户身份的绘画方式。<br>区别：<br>cookie数据保存在客户端，session数据保存在服务端。</p>
-<p>session<br>简单的说，当你登陆一个网站的时候，如果web服务器端使用的是session，那么所有的数据都保存在服务器上，客户端每次请求服务器的时候会发送当前会话sessionid，服务器根据当前sessionid判断相应的用户数据标志，以确定用户是否登陆或具有某种权限。由于数据是存储在服务器上面，所以你不能伪造。</p>
-<p>cookie<br>sessionid是服务器和客户端连接时候随机分配的，如果浏览器使用的是cookie，那么所有数据都保存在浏览器端，比如你登陆以后，服务器设置了cookie用户名，那么当你再次请求服务器的时候，浏览器会将用户名一块发送给服务器，这些变量有一定的特殊标记。服务器会解释为cookie变量，所以只要不关闭浏览器，那么cookie变量一直是有效的，所以能够保证长时间不掉线。<br>如果你能够截获某个用户的cookie变量，然后伪造一个数据包发送过去，那么服务器还是 认为你是合法的。所以，使用cookie被攻击的可能性比较大。<br>如果cookie设置了有效值，那么cookie会保存到客户端的硬盘上，下次在访问网站的时候，浏览器先检查有没有cookie，如果有的话，读取cookie，然后发送给服务器。<br>所以你在机器上面保存了某个论坛cookie，有效期是一年，如果有人入侵你的机器，将你的cookie拷走，放在他机器下面，那么他登陆该网站的时候就是用你的身份登陆的。当然，伪造的时候需要注意，直接copy cookie文件到 cookie目录，浏览器是不认的，他有一个index.dat文件，存储了 cookie文件的建立时间，以及是否有修改，所以你必须先要有该网站的 cookie文件，并且要从保证时间上骗过浏览器<br>两个都可以用来存私密的东西，session过期与否，取决于服务器的设定。cookie过期与否，可以在cookie生成的时候设置进去。</p>
-<p>区别对比：<br>(1)cookie数据存放在客户的浏览器上，session数据放在服务器上<br>(2)cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗,如果主要考虑到安全应当使用session<br>(3)session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能，如果主要考虑到减轻服务器性能方面，应当使用COOKIE<br>(4)单个cookie在客户端的限制是3K，就是说一个站点在客户端存放的COOKIE不能3K。<br>(5)所以：将登陆信息等重要信息存放为SESSION;其他信息如果需要保留，可以放在COOKIE中</p>
-<h1 id="转发与重定向区别"><a href="#转发与重定向区别" class="headerlink" title="转发与重定向区别"></a>转发与重定向区别</h1><p>转发（forward）是服务器行为，重定向是客户端行为。<br>    转发是服务器直接向目标地址访问URL,将相应内容读取之后发给浏览器，地址栏URL不变，转发页面和转发到的页面可以共享request里面的数据。效率高，可用于用户登录之后将角色转发到相应的模块。<br>    重定向是利用服务器返回的状态码来实现的，如果服务器返回301或者302，浏览器到新的网址重新请求资源。地址栏url会发生改变，而且不能共享数据。效率低，可用于用户注销之后，跳转到其他网站。</p>
-<h1 id="TCP-UDP-IP-以太网报文格式以及重要字段"><a href="#TCP-UDP-IP-以太网报文格式以及重要字段" class="headerlink" title="TCP/UDP/IP/以太网报文格式以及重要字段"></a>TCP/UDP/IP/以太网报文格式以及重要字段</h1><ul>
-<li>TCP报文头部结构：（前20字节固定）16为源端口号+16位目的端口号+32位序号+32位确认号+4位头部长度（单位4字节）+6位保留+6个关键字（SYN,ACK，FIN）+16位窗口大小（指接收窗口）+16位校验和+16位紧急指针+最多40字节的选项；</li>
-<li>UDP报文头部结构首部字段只有 8 个字节，包括源端口、目的端口、长度、检验和。：</li>
-<li>IP报文头部结构：<br>4位版本+4位首部长度（单位4字节）+8位服务类型+16位总长度（字节）<br>16位标识（分组）+3位标志（是否分组）+13为片内偏移<br>8位TTL+8位上层协议+16位首部检验和<br>32位源IP地址<br>32位目的IP地址</li>
-<li>以太网头部：<br>6字节目的地址+6字节源地址+2字节类型。这个地址指MAC地址。</li>
-</ul>
-<h1 id="HTTP与HTTPS之间的区别，-HTTPS链接建立过程"><a href="#HTTP与HTTPS之间的区别，-HTTPS链接建立过程" class="headerlink" title="HTTP与HTTPS之间的区别， HTTPS链接建立过程"></a>HTTP与HTTPS之间的区别， HTTPS链接建立过程</h1>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/%E3%80%90LeetCode%E3%80%91206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Whisperll">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whisperll's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/08/%E3%80%90LeetCode%E3%80%91206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">【LeetCode】206.反转链表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-08 22:53:20" itemprop="dateCreated datePublished" datetime="2020-03-08T22:53:20+08:00">2020-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-06 15:27:42" itemprop="dateModified" datetime="2020-04-06T15:27:42+08:00">2020-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/reverse-linked-list/" target="_blank" rel="noopener">206.反转链表</a></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * public class ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode next;</span><br><span class="line"> *     ListNode(int x) &#123; val &#x3D; x; &#125;</span><br><span class="line"> * &#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public ListNode reverseList(ListNode head) &#123;</span><br><span class="line">        ListNode newhead &#x3D; null;</span><br><span class="line">        ListNode cur &#x3D; head;</span><br><span class="line">        while(cur !&#x3D; null)&#123;</span><br><span class="line">            ListNode temp &#x3D; cur.next;</span><br><span class="line">            cur.next &#x3D; newhead;</span><br><span class="line">            newhead &#x3D; cur;</span><br><span class="line">            cur &#x3D; temp;</span><br><span class="line">        &#125;</span><br><span class="line">        return newhead;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/%E3%80%90LeetCode%E3%80%91146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Whisperll">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whisperll's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/08/%E3%80%90LeetCode%E3%80%91146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">【LeetCode】146.LRU缓存机制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-08 22:10:59" itemprop="dateCreated datePublished" datetime="2020-03-08T22:10:59+08:00">2020-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-06 16:17:23" itemprop="dateModified" datetime="2020-04-06T16:17:23+08:00">2020-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p> <a href="https://leetcode-cn.com/problems/lru-cache/" target="_blank" rel="noopener">146. LRU缓存机制</a></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">class LRUCache &#123;</span><br><span class="line">    private HashMap&lt;Integer, Node&gt; map; &#x2F;&#x2F; 哈希表</span><br><span class="line">    private DoubleList cache;</span><br><span class="line">    private int cap; &#x2F;&#x2F; 最大容量</span><br><span class="line">    public LRUCache(int capacity) &#123;</span><br><span class="line">        this.cap &#x3D; capacity;</span><br><span class="line">        map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">        cache &#x3D; new DoubleList();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public int get(int key) &#123;</span><br><span class="line">        if(!map.containsKey(key))&#123;</span><br><span class="line">            &#x2F;&#x2F;哈希表中找不到</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;</span><br><span class="line">        int val &#x3D; map.get(key).val;</span><br><span class="line">        put(key, val);&#x2F;&#x2F;将数据提前</span><br><span class="line">        return val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void put(int key, int value) &#123;</span><br><span class="line">        Node x &#x3D; new Node(key, value);</span><br><span class="line">        if(map.containsKey(key))&#123;</span><br><span class="line">            &#x2F;&#x2F;如果表里有</span><br><span class="line">            &#x2F;&#x2F;删除旧的，插入新的</span><br><span class="line">            cache.remove(map.get(key));</span><br><span class="line">            cache.addFirst(x); &#x2F;&#x2F;将新节点加到队列头</span><br><span class="line">            map.put(key, x);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            if(cap &#x3D;&#x3D; cache.size())&#123;</span><br><span class="line">                &#x2F;&#x2F;删除靠后的结点</span><br><span class="line">                Node last &#x3D; cache.removeLast();</span><br><span class="line">                map.remove(last.key);</span><br><span class="line">            &#125;</span><br><span class="line">            cache.addFirst(x); &#x2F;&#x2F;将新节点加到队列头</span><br><span class="line">            map.put(key, x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Node &#123;&#x2F;&#x2F;链表的元素</span><br><span class="line">    public int key, val;</span><br><span class="line">    public Node next, prev;</span><br><span class="line">    public Node(int k, int v) &#123;</span><br><span class="line">        this.key &#x3D; k;</span><br><span class="line">        this.val &#x3D; v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class DoubleList &#123;  </span><br><span class="line">    private Node head, tail; &#x2F;&#x2F; 头尾虚节点</span><br><span class="line">    private int size; &#x2F;&#x2F; 链表元素数</span><br><span class="line"></span><br><span class="line">    public DoubleList() &#123;</span><br><span class="line">        head &#x3D; new Node(0, 0);</span><br><span class="line">        tail &#x3D; new Node(0, 0);</span><br><span class="line">        head.next &#x3D; tail;</span><br><span class="line">        tail.prev &#x3D; head;</span><br><span class="line">        size &#x3D; 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 在链表头部添加节点 x</span><br><span class="line">    public void addFirst(Node x) &#123;</span><br><span class="line">        x.next &#x3D; head.next;</span><br><span class="line">        x.prev &#x3D; head;</span><br><span class="line">        head.next.prev &#x3D; x;</span><br><span class="line">        head.next &#x3D; x;</span><br><span class="line">        size++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 删除链表中的 x 节点（x 一定存在）</span><br><span class="line">    public void remove(Node x) &#123;</span><br><span class="line">        x.prev.next &#x3D; x.next;</span><br><span class="line">        x.next.prev &#x3D; x.prev;</span><br><span class="line">        size--;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; 删除链表中最后一个节点，并返回该节点</span><br><span class="line">    public Node removeLast() &#123;</span><br><span class="line">        if (tail.prev &#x3D;&#x3D; head)</span><br><span class="line">            return null;</span><br><span class="line">        Node last &#x3D; tail.prev;</span><br><span class="line">        remove(last);</span><br><span class="line">        return last;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; 返回链表长度</span><br><span class="line">    public int size() &#123; return size; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/%E3%80%90%E5%89%91%E6%8C%87Offer%E3%80%9164-%E6%B1%821-2-%E2%80%A6-n/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Whisperll">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whisperll's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/08/%E3%80%90%E5%89%91%E6%8C%87Offer%E3%80%9164-%E6%B1%821-2-%E2%80%A6-n/" class="post-title-link" itemprop="url">【剑指Offer】64.求1+2+…+n</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-08 17:23:50" itemprop="dateCreated datePublished" datetime="2020-03-08T17:23:50+08:00">2020-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-06 16:17:38" itemprop="dateModified" datetime="2020-04-06T16:17:38+08:00">2020-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a><a href="https://leetcode-cn.com/problems/qiu-12n-lcof/" target="_blank" rel="noopener">题目</a></h1><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int sumNums(int n) &#123;</span><br><span class="line">        int sum &#x3D; n;</span><br><span class="line">        &#x2F;&#x2F; &amp;&amp; 短路与 n &gt; 0为假时，不会再进行后面的判断，递归终止</span><br><span class="line">        boolean res &#x3D; (n &gt; 0) &amp;&amp; ((sum +&#x3D; sumNums(n - 1)) &gt; 0);</span><br><span class="line">        return sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/15/%E3%80%90LeetCode%E3%80%91547.%E6%9C%8B%E5%8F%8B%E5%9C%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Whisperll">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whisperll's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/15/%E3%80%90LeetCode%E3%80%91547.%E6%9C%8B%E5%8F%8B%E5%9C%88/" class="post-title-link" itemprop="url">【LeetCode】547.朋友圈</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-15 18:20:35" itemprop="dateCreated datePublished" datetime="2020-02-15T18:20:35+08:00">2020-02-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-06 16:17:02" itemprop="dateModified" datetime="2020-04-06T16:17:02+08:00">2020-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/friend-circles/" target="_blank" rel="noopener">547. 朋友圈</a></p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int findCircleNum(int[][] M) &#123;</span><br><span class="line">        int len &#x3D; M.length;</span><br><span class="line">        UF uf &#x3D; new UF(len);</span><br><span class="line">        for(int i &#x3D; 0; i &lt; len; i++)&#123;</span><br><span class="line">            for(int j &#x3D; 0; j &lt; len; j++)&#123;</span><br><span class="line">                if(M[i][j] &#x3D;&#x3D; 1)&#123;</span><br><span class="line">                    uf.union(i, j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return uf.getcount();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class UF&#123;</span><br><span class="line">    private int count;&#x2F;&#x2F;连通分量个数</span><br><span class="line">    private int[] parent;</span><br><span class="line">    private int[] size;</span><br><span class="line"></span><br><span class="line">    public UF(int n)&#123;</span><br><span class="line">        this.count &#x3D; n;</span><br><span class="line">        parent &#x3D; new int[n];</span><br><span class="line">        size &#x3D; new int[n];</span><br><span class="line">        for(int i &#x3D; 0; i &lt; n; i++)&#123;</span><br><span class="line">            parent[i] &#x3D; i;</span><br><span class="line">            size[i] &#x3D; 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public void union(int p, int q)&#123;</span><br><span class="line">        int rootP &#x3D; find(p);</span><br><span class="line">        int rootQ &#x3D; find(q);</span><br><span class="line">        if(rootP &#x3D;&#x3D; rootQ)&#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;P 结点大于 Q Q接在P下</span><br><span class="line">        if(size[rootP] &gt; size[rootQ])&#123;</span><br><span class="line">            parent[rootQ] &#x3D; rootP;</span><br><span class="line">            size[rootQ] +&#x3D; size[rootP];</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            parent[rootP] &#x3D; rootQ;</span><br><span class="line">            size[rootP] +&#x3D; size[rootQ];</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean isConnect(int p, int q)&#123;</span><br><span class="line">        int rootP &#x3D; find(p);</span><br><span class="line">        int rootQ &#x3D; find(q);</span><br><span class="line">        return rootP &#x3D;&#x3D; rootQ;</span><br><span class="line">    &#125;</span><br><span class="line">    public int find(int x)&#123;</span><br><span class="line">        while(parent[x] !&#x3D; x)&#123;</span><br><span class="line">            parent[x] &#x3D; parent[parent[x]];</span><br><span class="line">            x &#x3D; parent[x];</span><br><span class="line">        &#125;</span><br><span class="line">        return x;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getcount()&#123;</span><br><span class="line">        return count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Whisperll">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Whisperll's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-15 18:10:00" itemprop="dateCreated datePublished" datetime="2020-02-15T18:10:00+08:00">2020-02-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-06 15:50:46" itemprop="dateModified" datetime="2020-04-06T15:50:46+08:00">2020-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
   }
-</script>
-
-        </div>
-          
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/"><link rel="preload" href="https://pic.downk.cc/item/5e8adb5e504f4bcb04f0f38e.jpg" as="image"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: true,
+  isPost: false
   
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Whisperll's blog</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 娱乐</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">5</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">5</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 娱乐</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div></div></div><div id="body-wrap"><nav class="full_page" id="nav" style="background-image: url(https://pic.downk.cc/item/5e8adb5e504f4bcb04f0f38e.jpg)"><div id="site-info"><div id="site-title"><span class="blogtitle">Whisperll's blog</span></div><div id="site-sub-title"><span class="subtitle"></span></div><div id="site-social-icons"><a class="social-icon" href="https://github.com/jerryc127" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a><a class="social-icon" href="mailto:xxxxxxxx@gmail.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a><a class="social-icon" href="/atom.xml" target="_blank"><i class="fa fa-rss" aria-hidden="true"></i></a></div></div><div class="scroll-down"><i class="fa fa-angle-down scroll-down-effects"></i></div></nav><main id="content-outer"><div class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item article-container"><div class="post_cover left_radius"><a href="/2020/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="计算机网络"><img class="post_bg lazyload" data-src="https://pic.downk.cc/item/5e8ae528504f4bcb04f962e4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络"></a></div><div class="recent-post-info">  <a class="article-title" href="/2020/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="计算机网络">计算机网络</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-03-09</time><div class="content">计算机网络网络模型
+OSI七层模型:物理层，数据链路层，网络层，运输层，会话层，表示层， 应用层。
+TCP/IP5层模型：物理层，数据链路层，网络层，运输层，应用层。
+TCP/IP4层模型：网络接口层，网络层(IP)，运输层(TCP/UDP)，应用层(HTTP)。
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Whisperll"
-      src="/images/avatar.png">
-  <p class="site-author-name" itemprop="name">Whisperll</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">6</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Whisperll</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-</body>
-</html>
+常见协议
+应用层： DNS，HT ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover right_radius"><a href="/2020/03/08/%E3%80%90LeetCode%E3%80%91206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="【LeetCode】206.反转链表"><img class="post_bg lazyload" data-src="https://pic.downk.cc/item/5e8ad9a4504f4bcb04ef786c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【LeetCode】206.反转链表"></a></div><div class="recent-post-info">  <a class="article-title" href="/2020/03/08/%E3%80%90LeetCode%E3%80%91206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="【LeetCode】206.反转链表">【LeetCode】206.反转链表</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-03-08</time><div class="content">题目206.反转链表
+代码Code123456789101112131415161718192021&#x2F;** * Definition for singly-linked list. * public class ListNode &#123; *     int val; *     Li ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover left_radius"><a href="/2020/03/08/%E3%80%90LeetCode%E3%80%91146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" title="【LeetCode】146.LRU缓存机制"><img class="post_bg lazyload" data-src="https://pic.downk.cc/item/5e8ae51b504f4bcb04f9591f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【LeetCode】146.LRU缓存机制"></a></div><div class="recent-post-info">  <a class="article-title" href="/2020/03/08/%E3%80%90LeetCode%E3%80%91146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" title="【LeetCode】146.LRU缓存机制">【LeetCode】146.LRU缓存机制</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-03-08</time><div class="content">题目 146. LRU缓存机制
+代码Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686 ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover right_radius"><a href="/2020/03/08/%E3%80%90%E5%89%91%E6%8C%87Offer%E3%80%9164-%E6%B1%821-2-%E2%80%A6-n/" title="【剑指Offer】64.求1+2+…+n"><img class="post_bg lazyload" data-src="https://pic.downk.cc/item/5e8ae51b504f4bcb04f95921.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【剑指Offer】64.求1+2+…+n"></a></div><div class="recent-post-info">  <a class="article-title" href="/2020/03/08/%E3%80%90%E5%89%91%E6%8C%87Offer%E3%80%9164-%E6%B1%821-2-%E2%80%A6-n/" title="【剑指Offer】64.求1+2+…+n">【剑指Offer】64.求1+2+…+n</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-03-08</time><div class="content">题目代码Code12345678class Solution &#123;    public int sumNums(int n) &#123;        int sum &#x3D; n;        &#x2F;&#x2F; &amp;&amp; 短路与 n &gt; 0为假时，不会再进 ...</div></div></div><div class="recent-post-item article-container"><div class="post_cover left_radius"><a href="/2020/02/15/%E3%80%90LeetCode%E3%80%91547.%E6%9C%8B%E5%8F%8B%E5%9C%88/" title="【LeetCode】547.朋友圈"><img class="post_bg lazyload" data-src="https://pic.downk.cc/item/5e8ae528504f4bcb04f962e7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【LeetCode】547.朋友圈"></a></div><div class="recent-post-info">  <a class="article-title" href="/2020/02/15/%E3%80%90LeetCode%E3%80%91547.%E6%9C%8B%E5%8F%8B%E5%9C%88/" title="【LeetCode】547.朋友圈">【LeetCode】547.朋友圈</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-02-15</time><div class="content">题目547. 朋友圈
+代码Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960class Solution &#123;  ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"><div class="author-info__name">Whisperll</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length_num">5</div></a></div><div class="card-info-data-item is-center">      <a href="/tags/"><div class="headline">标签</div><div class="length_num">5</div></a></div></div><div class="card-info-bookmark is-center"><a class="bookmark button--primary button--animated" id="bookmark-it" href="javascript:;" title="加入书签" target="_self"><i class="fa fa-bookmark" aria-hidden="true"></i><span>加入书签</span></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/jerryc127" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a><a class="social-icon" href="mailto:xxxxxxxx@gmail.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a><a class="social-icon" href="/atom.xml" target="_blank"><i class="fa fa-rss" aria-hidden="true"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fa fa-bullhorn card-announcement-animation" aria-hidden="true"></i><span>公告</span></div><div class="announcement_content">一条懒狗罢了 ^_^</div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fa fa-history" aria-hidden="true"></i><span>最新文章</span></div><div class="aside-recent-item"> <div class="aside-recent-post"><a href="/2020/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><div class="aside-post-cover"><img class="aside-post-bg lazyload" data-src="https://pic.downk.cc/item/5e8ae528504f4bcb04f962e4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="计算机网络" alt="计算机网络"></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="计算机网络">计算机网络</div><time class="aside-post_meta post-meta__date">2020-03-09</time></div></a></div><div class="aside-recent-post"><a href="/2020/03/08/%E3%80%90LeetCode%E3%80%91206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"><div class="aside-post-cover"><img class="aside-post-bg lazyload" data-src="https://pic.downk.cc/item/5e8ad9a4504f4bcb04ef786c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="【LeetCode】206.反转链表" alt="【LeetCode】206.反转链表"></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/03/08/%E3%80%90LeetCode%E3%80%91206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="【LeetCode】206.反转链表">【LeetCode】206.反转链表</div><time class="aside-post_meta post-meta__date">2020-03-08</time></div></a></div><div class="aside-recent-post"><a href="/2020/03/08/%E3%80%90LeetCode%E3%80%91146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/"><div class="aside-post-cover"><img class="aside-post-bg lazyload" data-src="https://pic.downk.cc/item/5e8ae51b504f4bcb04f9591f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="【LeetCode】146.LRU缓存机制" alt="【LeetCode】146.LRU缓存机制"></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/03/08/%E3%80%90LeetCode%E3%80%91146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" title="【LeetCode】146.LRU缓存机制">【LeetCode】146.LRU缓存机制</div><time class="aside-post_meta post-meta__date">2020-03-08</time></div></a></div><div class="aside-recent-post"><a href="/2020/03/08/%E3%80%90%E5%89%91%E6%8C%87Offer%E3%80%9164-%E6%B1%821-2-%E2%80%A6-n/"><div class="aside-post-cover"><img class="aside-post-bg lazyload" data-src="https://pic.downk.cc/item/5e8ae51b504f4bcb04f95921.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="【剑指Offer】64.求1+2+…+n" alt="【剑指Offer】64.求1+2+…+n"></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/03/08/%E3%80%90%E5%89%91%E6%8C%87Offer%E3%80%9164-%E6%B1%821-2-%E2%80%A6-n/" title="【剑指Offer】64.求1+2+…+n">【剑指Offer】64.求1+2+…+n</div><time class="aside-post_meta post-meta__date">2020-03-08</time></div></a></div><div class="aside-recent-post"><a href="/2020/02/15/%E3%80%90LeetCode%E3%80%91547.%E6%9C%8B%E5%8F%8B%E5%9C%88/"><div class="aside-post-cover"><img class="aside-post-bg lazyload" data-src="https://pic.downk.cc/item/5e8ae528504f4bcb04f962e7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="【LeetCode】547.朋友圈" alt="【LeetCode】547.朋友圈"></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/02/15/%E3%80%90LeetCode%E3%80%91547.%E6%9C%8B%E5%8F%8B%E5%9C%88/" title="【LeetCode】547.朋友圈">【LeetCode】547.朋友圈</div><time class="aside-post_meta post-meta__date">2020-02-15</time></div></a></div></div></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fa fa-tags" aria-hidden="true"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/LeetCode/" style="font-size: 24px; color: #99a9bf">LeetCode</a> <a href="/tags/%E5%89%91%E6%8C%87Offer/" style="font-size: 16px; color: #999">剑指Offer</a> <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" style="font-size: 16px; color: #999">并查集</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 16px; color: #999">网络</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 16px; color: #999">链表</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fa fa-archive" aria-hidden="true"></i><span>归档</span></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/"><span class="archive-list-date">2020年03月</span><span class="archive-list-count">4</span></a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/"><span class="archive-list-date">2020年02月</span><span class="archive-list-count">1</span></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fa fa-line-chart" aria-hidden="true"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-article-name">文章数目 :</div><div class="webinfo-article-count">5</div></div><div class="webinfo-item"><div class="webinfo-runtime-name">已运行时间 :</div><div class="webinfo-runtime-count" id="webinfo-runtime-count" start_date="6/7/2018 00:00:00">     </div></div><div class="webinfo-item">      <div class="webinfo-site-uv-name">本站访客数 :</div><div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="webinfo-site-name">本站总访问量 :</div><div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://pic.downk.cc/item/5e8adb5e504f4bcb04f0f38e.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By Whisperll</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/canvas-nest.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="https://cdn.jsdelivr.net/npm/typed.js"></script><script>var typed = new Typed(".subtitle", {
+strings: '事常与人违&#44;事总在人为'.split(","),
+startDelay: 300,
+typeSpeed: 100,
+loop: true,
+backSpeed: 50
+});</script></body></html>
